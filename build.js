@@ -3,6 +3,8 @@ const cache = require('./netlify-cache');
 
 (async function() {
 
+	console.log('All Netlify ENVIRONMENT:');
+	console.log(JSON.stringify(process.env));
 	await cache.preBuild();
 
 	await fs.ensureDir('./build');
