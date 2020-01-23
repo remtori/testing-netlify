@@ -1,13 +1,18 @@
-const fs = require('fs');
+const fs = require('fs-extra');
+const cache = require('./netlify-cache');
 
-let files = [];
+(async function() {
 
-try
-{
-	files = fs.readdirSync('./build')
-}
-catch(e) {
-	fs.mkdirSync('./build');
-}
+	await cache.preBuild();
 
-fs.writeFileSync(`./build/index-${files.length}.html`, `<div>This is the ${files.length}-th generated file</div>`);
+	await fs.ensureDir('./build');
+	const files = await fs.readdir('./build');
+
+	await fs.writeFile(
+		`./build/index-${files.length}.html`,
+		`<div>This is the ${files.length}-th generated file</div>`
+	);
+
+	await cache.postBuild();
+
+})();
