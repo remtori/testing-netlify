@@ -2,4 +2,4 @@
 
 	publish = "static"
 
-	command = "#"
+	command = "node ./build-static.js"
