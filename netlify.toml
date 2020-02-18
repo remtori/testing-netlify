@@ -1,5 +1,5 @@
 [build]
 
-	publish = "build"
+	publish = "static"
 
-	command = "npm run build"
+	command = "#"
