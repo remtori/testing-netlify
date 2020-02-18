@@ -11,12 +11,16 @@ const cache = require('./netlify-cache');
 		const files = await fs.readdir('./build');
 		console.log(`Remtori: Found ${files.length} files in build directory`);
 
+		const newFile = `index-${files.length}.html`;
+
 		await fs.writeFile(
-			`./build/index-${files.length}.html`,
+			`./build/${newFile}`,
 			`
 				<div>This is the ${files.length}-th generated file</div>
 			`,
 		);
+
+		files.push(newFile);
 
 		await fs.writeFile(
 			`./build/index.html`,
