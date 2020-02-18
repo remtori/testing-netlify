@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const fetch = require('node-fetch');
+const path = require('path');
 const cache = require('./netlify-cache');
 
 (async function() {
@@ -16,6 +16,13 @@ const cache = require('./netlify-cache');
 			`
 				<div>This is the ${files.length}-th generated file</div>
 			`,
+		);
+
+		await fs.writeFile(
+			`./build/index.html`,
+			files
+				.map(p => `<a href="/${p}">${p}</a>`)
+				.join(`<br/>`)
 		);
 
 		await cache.postBuild();
